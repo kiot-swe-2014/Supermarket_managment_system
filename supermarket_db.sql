@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2024 at 01:01 PM
+-- Generation Time: Dec 22, 2024 at 01:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bill_report`
+--
+
+CREATE TABLE `bill_report` (
+  `bill_id` int(11) NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price_per_item` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  `bill_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bill_report`
+--
+
+INSERT INTO `bill_report` (`bill_id`, `item_name`, `quantity`, `price_per_item`, `subtotal`, `bill_date`) VALUES
+(1, 'coca', 5, 25.00, 125.00, '2024-12-22 11:58:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -31,17 +53,18 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `quantity`) VALUES
-(1, 'sushi', 20.00, 20),
-(2, 'coca', 20.00, 20),
-(3, 'bread', 20.00, 20);
+INSERT INTO `products` (`id`, `name`, `price`, `quantity`, `category`) VALUES
+(1, 'coca', 25.00, 4, 'soda'),
+(2, 'bread', 10.00, 12, 'bread'),
+(3, 'pork', 150.00, 1, 'meat');
 
 -- --------------------------------------------------------
 
@@ -83,6 +106,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 --
 
 --
+-- Indexes for table `bill_report`
+--
+ALTER TABLE `bill_report`
+  ADD PRIMARY KEY (`bill_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -106,6 +135,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bill_report`
+--
+ALTER TABLE `bill_report`
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
