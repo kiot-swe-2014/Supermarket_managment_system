@@ -64,7 +64,34 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `name`, `price`, `quantity`, `category`) VALUES
 (1, 'coca', 25.00, 4, 'soda'),
 (2, 'bread', 10.00, 12, 'bread'),
-(3, 'pork', 150.00, 1, 'meat');
+(3, 'pork', 150.00, 1, 'meat'),
+(4, 'apple', 1.00, 50, 'fruit'),
+(5, 'banana', 0.50, 100, 'fruit'),
+(6, 'orange', 0.75, 80, 'fruit'),
+(7, 'chicken', 120.00, 5, 'meat'),
+(8, 'beef', 200.00, 2, 'meat'),
+(9, 'milk', 1.50, 20, 'dairy'),
+(10, 'cheese', 5.00, 15, 'dairy'),
+(11, 'yogurt', 2.00, 25, 'dairy'),
+(12, 'rice', 2.50, 30, 'grains'),
+(13, 'pasta', 1.75, 40, 'grains'),
+(14, 'olive oil', 10.00, 10, 'condiments'),
+(15, 'vinegar', 3.00, 15, 'condiments'),
+(16, 'salt', 0.25, 100, 'condiments'),
+(17, 'pepper', 1.00, 50, 'condiments'),
+(18, 'sugar', 0.80, 60, 'condiments'),
+(19, 'coffee', 5.00, 20, 'beverages'),
+(20, 'tea', 3.00, 30, 'beverages'),
+(21, 'cookies', 2.50, 25, 'snacks'),
+(22, 'chips', 1.50, 40, 'snacks'),
+(23, 'candy', 0.75, 100, 'snacks'),
+(24, 'frozen pizza', 8.00, 10, 'frozen food'),
+(25, 'ice cream', 4.00, 15, 'frozen food'),
+(26, 'frozen vegetables', 3.50, 20, 'frozen food'),
+(27, 'cereal', 3.00, 25, 'breakfast'),
+(28, 'oatmeal', 2.00, 30, 'breakfast'),
+(29, 'granola bars', 1.50, 40, 'snacks'),
+(30, 'nuts', 6.00, 20, 'snacks');
 
 -- --------------------------------------------------------
 
