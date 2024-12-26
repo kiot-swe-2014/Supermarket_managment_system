@@ -105,36 +105,50 @@ public class SellerDashboard extends JFrame {
 
     // Method to load items based on selected category
     private void loadItems() {
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket_db", "root", "");
-            String selectedCategory = categoryDropdown.getSelectedItem().toString();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM products WHERE category = ?");
-            ps.setString(1, selectedCategory);
-            ResultSet rs = ps.executeQuery();
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket_db", "root", "");
+        String selectedCategory = categoryDropdown.getSelectedItem().toString();
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM products WHERE category = ?");
+        ps.setString(1, selectedCategory);
+        ResultSet rs = ps.executeQuery();
 
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-            Vector<String> columnNames = new Vector<>();
-            for (int i = 1; i <= columnCount; i++) {
-                columnNames.add(metaData.getColumnName(i));
-            }
-
-            Vector<Vector<Object>> data = new Vector<>();
-            while (rs.next()) {
-                Vector<Object> row = new Vector<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(rs.getObject(i));
-                }
-                data.add(row);
-            }
-
-            itemTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
-            con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading items: " + ex.getMessage());
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        Vector<String> columnNames = new Vector<>();
+        for (int i = 1; i <= columnCount; i++) {
+            columnNames.add(metaData.getColumnName(i));
         }
+
+        Vector<Vector<Object>> data = new Vector<>();
+        while (rs.next()) {
+            Vector<Object> row = new Vector<>();
+            for (int i = 1; i <= columnCount; i++) {
+                row.add(rs.getObject(i));
+            }
+            data.add(row);
+        }
+
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+
+        // Apply styles to the table
+        itemTable.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font
+        itemTable.setRowHeight(30); // Set row height
+        itemTable.setBackground(new Color(240, 240, 255)); // Set background color
+        itemTable.setGridColor(new Color(200, 200, 200)); // Set grid color
+        itemTable.setSelectionBackground(new Color(100, 149, 237)); // Set selection background color
+        itemTable.setSelectionForeground(Color.WHITE); // Set selection foreground color
+
+        // Optional: Set column widths
+        for (int i = 0; i < columnCount; i++) {
+            itemTable.getColumnModel().getColumn(i).setPreferredWidth(150); // Set preferred width for each column
+        }
+
+        con.close();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error loading items: " + ex.getMessage());
     }
+}
 
     // Method to add the selected item to the bill and reduce its quantity in the database
     private void addToBill() {
