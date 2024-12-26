@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this templat
- */
 package supermarketmanagementsystem;
 
-/**
- *
- * @author hp
- */
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
@@ -20,48 +13,70 @@ public class LoginForm extends JFrame {
     public LoginForm() {
         setTitle("Login");
         setLayout(null);
-        setSize(300, 200);
+        setSize(300, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center the window
+
+        // Set background color
+        getContentPane().setBackground(new Color(240, 240, 240));
 
         // UI Components
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setBounds(10, 20, 80, 25);
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(usernameLabel);
 
         usernameField = new JTextField();
         usernameField.setBounds(100, 20, 165, 25);
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
         add(usernameField);
 
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(10, 50, 80, 25);
+        passwordLabel.setBounds(10, 60, 80, 25);
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(passwordLabel);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(100, 50, 165, 25);
+        passwordField.setBounds(100, 60, 165, 25);
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
         add(passwordField);
 
         JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setBounds(10, 80, 80, 25);
+        roleLabel.setBounds(10, 100, 80, 25);
+        roleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(roleLabel);
 
         roleComboBox = new JComboBox<>(new String[]{"admin", "seller"});
-        roleComboBox.setBounds(100, 80, 165, 25);
+        roleComboBox.setBounds(100, 100, 165, 25);
+        roleComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         add(roleComboBox);
 
         JButton loginButton = new JButton("Login");
-        loginButton.setBounds(10, 110, 80, 25);
+        loginButton.setBounds(10, 140, 80, 25);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setBackground(new Color(0, 120, 215));
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
         add(loginButton);
 
+        // Add action listener for the login button
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                authenticateUser();
+                authenticateUser ();
             }
         });
+
+        // Add padding to the components
+        for (Component component : getContentPane().getComponents()) {
+            if (component instanceof JButton) {
+                ((JButton) component).setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            }
+        }
 
         setVisible(true);
     }
 
-    private void authenticateUser() {
+    private void authenticateUser () {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         String role = (String) roleComboBox.getSelectedItem();
