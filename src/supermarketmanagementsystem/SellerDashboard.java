@@ -186,11 +186,49 @@ public class SellerDashboard extends JFrame {
     }
 
     private void clearBill() {
+    if (totalAmount == 0) {
+        JOptionPane.showMessageDialog(this, "No items to clear.");
+        return;
+    }
+    
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket_db", "root", "");
+        PreparedStatement ps = con.prepareStatement(
+            "INSERT INTO bill_report (item_name, quantity, price_per_item, subtotal) VALUES (?, ?, ?, ?)"
+        );
+
+        // Splitting bill area text to process line by line
+        String[] lines = billArea.getText().split("\\n");
+        for (String line : lines) {
+            if (line.contains(" x ")) {
+                String[] parts = line.split(" x | = \\$");
+                String itemName = parts[0].trim();
+                int quantity = Integer.parseInt(parts[1].trim());
+                double subtotal = Double.parseDouble(parts[2].trim());
+                double pricePerItem = subtotal / quantity;
+
+                // Add data to the database
+                ps.setString(1, itemName);
+                ps.setInt(2, quantity);
+                ps.setDouble(3, pricePerItem);
+                ps.setDouble(4, subtotal);
+                ps.executeUpdate();
+            }
+        }
+
+        ps.close();
+        con.close();
+
+        // Clear the bill area and reset total amount
         totalAmount = 0;
         billArea.setText("");
         quantityField.setText("");
-        JOptionPane.showMessageDialog(this, "Bill cleared.");
+        JOptionPane.showMessageDialog(this, "Bill saved and cleared.");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error saving the bill: " + ex.getMessage());
     }
+}
 
     // Method to handle printing the bill
     private void printBill() {
