@@ -1,7 +1,7 @@
 "# Supermarket" 
-admin name:admin
-admin password:adminpass
+admin name: admin
+admin password: adminpass
 
 
-seller name:seller1
-seller password:sellerpass
+seller name: seller1
+seller password: sellerpass
